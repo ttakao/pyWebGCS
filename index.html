@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>pyWebGCS</title>  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="static/style.css">  
+    
+</head>
+<body onload="map_init()">
+<header>
+<nav>
+  <div id="logo"><p>pyWebGCS</p></div>
+</nav>
+</header>
+<div id="wrapper">
+  <div id="mapcontainer"></div>
+  
+  <div id="control">
+    <p>controller</p>
+    
+    <canvas id="fl_status"></canvas>
+    <div>
+    <p>状況</p>
+    <table>
+      <tbody>
+        <tr><td>フライトモード</td><td id="mode_cell"></td></tr>
+
+
+      </tbody>
+
+    </table>
+    </div>
+
+    <div>
+    <p>モード</p>
+    <select id="sel_mode">
+      <option value="MANUAL">Manual</option>
+      <option value="GUIDED">Guided</option>
+      <option value="ALTHOLD">Alt Hold</option>
+      <option value="LOITER">Loiter</option>
+      <option value="AUTO">Auto</option>
+      <option value="RTL">RTL</option>
+    </select>
+    <button id="btn_mode" onclick="onMode();">設定</button>
+    </div>
+    &nbsp;&nbsp;
+    <div>
+      <span id="connect_marker">●</span>
+      <span id="connect_status">切断中</span>
+    </div>
+    <div>
+      <select id="sel_con">
+        <option value="close">切断</option>
+        <option value="/dev/ttyAMA0">GPIO Serial</option>
+        <option value="/dev/ttyACM0">USB Serial</option>
+        <option value="tcp:127.0.0.1:5762">Local(tcp)</option>
+        <option value="udp:127.0.0.1:14550">Local(UDP)</option>
+      </select>
+      <button id="btn_con" onclick="onConnect();">接続/切断</button>
+    </div>
+  </div><!-- end control-->
+</div><!-- end wrapper-->
+&nbsp;
+</body>
+<script src="static/map_setup.js"></script>
+<script src="static/ws_setup.js"></script>
+<script src="static/uav_setup.js"></script>
+</html>
