@@ -1,6 +1,6 @@
 # pywebgcs
 ## Ardupilot Web based simple GCS.
-<sub>Background</sub>
+##Background
 There are some GCS supporting Ardupilot.
 These GCS are all-in-one.
 But when light users would like to control his UAV, many of functions make confusion.
@@ -8,8 +8,7 @@ Then I try to build simple GCS.
 This GCS can be used just one user for one UAV.
 Because this package should run on the companion computer.
 
-<sub>Ideas</sub>
-
+##Ideas
 - No multi users, no multi UAVs
 - Do not use paid web services, such as Google
 - Server side program is writtern by Python, Cliant side program is by Javascript.
@@ -19,7 +18,7 @@ Because this package should run on the companion computer.
 - Python, FastAPI, websocket, uavconf
 - Dronekit for Python
 
-<sub>First Specification</sub>
+##First Specification
 - Access by LTE module
 - Run on companion computer (Raspberry PI)
 - show UAV status
