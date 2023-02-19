@@ -36,9 +36,13 @@ function map_init() {
     var mpoint = [35.8797, 140.3405];
     // センターとズームを移動
     map.setView(mpoint,15);
-    // マーカーを追加 tipがマウスオーバーで反応がいい
-    L.marker(mpoint, {draggable: true}).bindTooltip("埼玉大学").addTo(map);
-    
+    // 機体マーカーを読み込む
+    var uavmarker = L.icon({ iconUrl: './static/uavmarker2.png', iconRetinaUrl: './static/uavmarker2.png', 
+        iconSize:[50,50], iconAnchor:[25,25], popupAnchor:[0,-50]});
+    //マーカーに載せる情報（仮)
+    markerinfo = "緯度:"+mpoint[0]+" 経度:"+mpoint[1] ;
+    // マーカーを追加
+    L.marker( mpoint, {icon:uavmarker}).addTo(map).bindPopup(markerinfo);
     // 地図上のclickイベントの設定
     map.on('click', onMapClick);
     
