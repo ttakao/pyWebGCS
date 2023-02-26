@@ -3,7 +3,7 @@ var TimerID;
 // this value is status update cycle(ms)
 // 1000 is MAVlink update cycle.
 // then over 2000 is recommended.
-const PERIOD = 2000;
+const PERIOD = 2500;
 
 function update_status(){
     obj = {};
@@ -95,4 +95,9 @@ function html_status(obj){
             // console.log("Not used("+key+"):"+value);
         }
     }
+}
+
+function onArm() {
+    obj = {};
+    send_json("arm", obj);
 }

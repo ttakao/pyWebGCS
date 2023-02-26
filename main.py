@@ -9,7 +9,7 @@ import uvicorn
 from dronekit import connect as VehicleConnect, VehicleMode
 
 # constant. this is html page. index.en.html  English version.
-HTMLPAGE = 'index.en.html'
+HTMLPAGE = 'index.jp.html'
 
 app = FastAPI()
 app.mount("/static",StaticFiles(directory="static"), name="static")
@@ -89,7 +89,24 @@ def getStatus(obj):
    
     return
 
+def tryArm():
+    global vehicle
+    if (vehicle is None):
+        pass
+    else:
+        if (vehicle.is_armable):
+            if vehicle.armed:
+                vehicle.armed = False
+                while not vehicle.armed:
+                    time.sleep(1)   
+
+            else:
+                vehicle.armed = True
+                while vehicle.armed:
+                    time.sleep(1)
+#
 # main web request process
+#
 @app.get("/")
 async def get():
     fh = open(HTMLPAGE,'r')
@@ -106,7 +123,7 @@ async def msg(websocket: WebSocket):
             # receive as json, add getting info and send back.
             recv_obj = await websocket.receive_json()
             key = recv_obj["key"]
-            
+
             if key == "connect":
                 recv_obj["result"] = connectvehicle(recv_obj["connectstring"])
 
@@ -116,12 +133,15 @@ async def msg(websocket: WebSocket):
 
             elif recv_obj["key"] == "status":
                 getStatus(recv_obj)
+            
+            elif recv_obj["key"] == "arm":
+                # result is given by status.
+                tryArm()
 
             await websocket.send_json(recv_obj) # send updated info to Browser
     
     except  WebSocketDisconnect:
         print("*** unexpected something happens. socket closed. ")
-        print(recv_obj["key"])
         # await websocket.close()
 
             

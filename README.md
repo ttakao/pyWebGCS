@@ -23,7 +23,7 @@ Then I do not assume multi users and multi vehicles.
 - Python: FastAPI, websocket, uavconf, Dronekit for Python
 
 ## Current Status
-02/26/2023 Show current UAV status.
+02/26/2023 Show current UAV status. ARMable.
 
 ## First Goal
 - Accessed by LTE module or Wi-Fi (Done)

@@ -22,43 +22,45 @@
   
   <div id="control">
     <canvas id="fl_status"></canvas>
-    <div>
-    <table>
-      <tbody>
-        <tr><td>フライトモード</td><td id="mode_cell">不明</td></tr>
-        <tr><td>GPS</td><td id="gps_cell">不明</td></tr>
-        <tr><td>バッテリー(V)</td><td id="batt_volt_cell">不明</td></tr>
-        <tr><td>バッテリー(C)</td><td id="batt_cur_cell">不明</td></tr>
-        <tr><td>バッテリー(L)</td><td id="batt_level_cell">不明</td></tr>
-        <tr><td>ARM可能</td><td id="armable_cell">不明</td></tr>
-        <tr><td>ARM中</td><td id="armed_cell">不明</td></tr>
-        <tr><td>システム状況</td><td id="sys_status_cell">不明</td></tr>
-      </tbody>
-    </table>
+   
+    <div class="operation">
+      <table>
+        <tbody>
+          <tr><td>フライトモード</td><td id="mode_cell">不明</td></tr>
+          <tr><td>GPS</td><td id="gps_cell">不明</td></tr>
+          <tr><td>バッテリー(V)</td><td id="batt_volt_cell">不明</td></tr>
+          <tr><td>バッテリー(C)</td><td id="batt_cur_cell">不明</td></tr>
+          <tr><td>バッテリー(%)</td><td id="batt_level_cell">不明</td></tr>
+          <tr><td>ARM可能</td><td id="armable_cell">不明</td></tr>
+          <tr><td>ARM中</td><td id="armed_cell">不明</td></tr>
+          <tr><td>システム状況</td><td id="sys_status_cell">不明</td></tr>
+        </tbody>
+      </table>
     </div>
-&nbsp;
-    <div>
-    <span classname="mode">モード変更指令</span>
-    <span classname="mode">
-    <select id="sel_mode">
-      <option value="MANUAL">Manual</option>
-      <option value="GUIDED">Guided</option>
-      <option value="ALTHOLD">Alt Hold</option>
-      <option value="LOITER">Loiter</option>
-      <option value="AUTO">Auto</option>
-      <option value="RTL">RTL</option>
-    </select>
-    </span>
-    <span classname="mode">
-    <button id="btn_mode" onclick="onMode();">設定</button>
-    </span>  
+  &nbsp;
+    <div class="operation">
+      <span>モード変更指令</span>
+        <select id="sel_mode">
+          <option value="MANUAL">Manual</option>
+          <option value="GUIDED">Guided</option>
+          <option value="ALTHOLD">Alt Hold</option>
+          <option value="LOITER">Loiter</option>
+          <option value="AUTO">Auto</option>
+          <option value="RTL">RTL</option>
+        </select>
+      </span>
+      <span>
+        <button id="btn_mode" onclick="onMode();">設定</button>
+      </span>
     </div>
-    &nbsp;&nbsp;
-    <div>
+    <div class="operation">
+        <button id="btn_arm" onclick="onArm();">ARM/DISARM</button>
+    </div>
+    <div class="operation">
       <span id="connect_marker">●</span>
       <span id="connect_status">切断中</span>
     </div>
-    <div>
+    <div class="operation">
       <select id="sel_con">
         <option value="close">切断</option>
         <option value="/dev/ttyAMA0">GPIO Serial</option>
@@ -66,7 +68,7 @@
         <option value="tcp:127.0.0.1:5762">Local(tcp)</option>
         <option value="udp:127.0.0.1:14550">Local(UDP)</option>
       </select>
-      <button id="btn_con" onclick="onConnect();">接続/切断</button>
+        <button id="btn_con" onclick="onConnect();">接続/切断</button>
     </div>
   </div><!-- end control-->
 </div><!-- end wrapper-->

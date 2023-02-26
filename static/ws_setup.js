@@ -23,6 +23,10 @@ ws.onmessage = function(event){
             html_status(obj);
             break;
 
+        case 'arm':
+            // do nothing.
+            break;
+            
         default:
             alert("??? something is wrong: "+obj["key"]+ " process.");
     }
