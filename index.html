@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>pyWebGCS</title>  
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="static/style.css">  
-    
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+  <link rel="stylesheet" href="static/style.css"> 
+
+  <script src="static/MovingMarker.js"></script>
+  <script src="static/leaflet.rotatedMarker.js"></script>
 </head>
 <body onload="map_init()">
 <header>
@@ -19,23 +21,25 @@
   <div id="mapcontainer"></div>
   
   <div id="control">
-    <p>controller</p>
-    
     <canvas id="fl_status"></canvas>
     <div>
-    <p>状況</p>
     <table>
       <tbody>
-        <tr><td>フライトモード</td><td id="mode_cell"></td></tr>
-
-
+        <tr><td>フライトモード</td><td id="mode_cell">不明</td></tr>
+        <tr><td>GPS</td><td id="gps_cell">不明</td></tr>
+        <tr><td>バッテリー(V)</td><td id="batt_volt_cell">不明</td></tr>
+        <tr><td>バッテリー(C)</td><td id="batt_cur_cell">不明</td></tr>
+        <tr><td>バッテリー(L)</td><td id="batt_level_cell">不明</td></tr>
+        <tr><td>ARM可能</td><td id="armable_cell">不明</td></tr>
+        <tr><td>ARM中</td><td id="armed_cell">不明</td></tr>
+        <tr><td>システム状況</td><td id="sys_status_cell">不明</td></tr>
       </tbody>
-
     </table>
     </div>
-
+&nbsp;
     <div>
-    <p>モード</p>
+    <span classname="mode">モード変更指令</span>
+    <span classname="mode">
     <select id="sel_mode">
       <option value="MANUAL">Manual</option>
       <option value="GUIDED">Guided</option>
@@ -44,7 +48,10 @@
       <option value="AUTO">Auto</option>
       <option value="RTL">RTL</option>
     </select>
+    </span>
+    <span classname="mode">
     <button id="btn_mode" onclick="onMode();">設定</button>
+    </span>  
     </div>
     &nbsp;&nbsp;
     <div>

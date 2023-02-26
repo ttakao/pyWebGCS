@@ -1,5 +1,8 @@
 // グローバル変数
 var map;
+// 機体マーカー
+var markerHandle;
+
 function map_init() {
     //地図を表示するdiv要素のidを設定
     map = L.map('mapcontainer', {zoomControl:false});
@@ -36,18 +39,37 @@ function map_init() {
     var mpoint = [35.8797, 140.3405];
     // センターとズームを移動
     map.setView(mpoint,15);
-    // 機体マーカーを読み込む
-    var uavmarker = L.icon({ iconUrl: './static/uavmarker2.png', iconRetinaUrl: './static/uavmarker2.png', 
-        iconSize:[50,50], iconAnchor:[25,25], popupAnchor:[0,-50]});
-    //マーカーに載せる情報（仮)
-    markerinfo = "緯度:"+mpoint[0]+" 経度:"+mpoint[1] ;
-    // マーカーを追加
-    L.marker( mpoint, {icon:uavmarker}).addTo(map).bindPopup(markerinfo);
+    // 仮にセット
+        var uavmarker = L.icon({ iconUrl: './static/uavmarker2.png', iconRetinaUrl: './static/uavmarker2.png', 
+    iconSize:[50,50], iconAnchor:[25,25], popupAnchor:[0,-50]});
+    
+    markerHandle = L.Marker.movingMarker([mpoint], [],
+        { rotationAngle:0,
+          rotationOrigin: 'center center',
+          contextmenu: true,
+          title:'uav',
+          contextmenuItems: [{
+            text: 'uav',
+            index: 0
+          },{
+            separator: true,
+            index: 1
+          }]
+        });
+    markerHandle.bindPopup( buildPopmsg(mpoint, 0, 0) ); // pop up msg
+    markerHandle.options.icon = uavmarker;
+    markerHandle.addTo( map );
+
     // 地図上のclickイベントの設定
     map.on('click', onMapClick);
     
 } // end of init()
 
+function buildPopmsg([lat, lon], alt, ang){
+    uavPopmsg = "緯度:" + lat + " 経度:" + lon + '<br/>';
+    uavPopmsg = alt + "[m],"+ ang + '[deg]';
+    return uavPopmsg
+}
 function onMapClick(e){
     //地図のクリックイベントハンドラー
     //クリック地点にマーカー追加、マーカーのclickイベントでonMarkerClick関数を設定
@@ -59,4 +81,11 @@ function onMarkerClick(e){
     // マーカーのclickイベントで呼ばれる
     // クリックされると削除
     map.removeLayer(e.target);
+}
+
+function onUAVMove(lat, lon, alt, ang){
+    markerHandle.moveTo([lat,lon], 1000);
+    markerHandle.setRotationAngle(ang);
+    markerHandle.setPopupContent(buildPopmsg([lat, lon], alt, ang));
+
 }

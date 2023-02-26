@@ -1,11 +1,12 @@
+import json
+import time
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
-import json
-import time
-from dronekit import connect as VehicleConnect, VehicleMode
-
 import uvicorn
+
+from dronekit import connect as VehicleConnect, VehicleMode
 
 app = FastAPI()
 app.mount("/static",StaticFiles(directory="static"), name="static")
@@ -112,13 +113,13 @@ async def msg(websocket: WebSocket):
 
             elif recv_obj["key"] == "status":
                 getStatus(recv_obj)
-                print( json.dumps(recv_obj) )
 
             await websocket.send_json(recv_obj) # send updated info to Browser
     
-    except:
-        print("** Oh, something happen. socket closed. **")
-        await websocket.close()
+    except  WebSocketDisconnect:
+        print("*** unexpected something happens. socket closed. ")
+        print(recv_obj["key"])
+        # await websocket.close()
 
             
 if __name__ == "__main__":

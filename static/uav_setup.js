@@ -1,5 +1,14 @@
 // button click handler & returning data html process
+var TimerID;
+// this value is status update cycle(ms)
+// 1000 is MAVlink update cycle.
+// then over 2000 is recommended.
+const PERIOD = 2000;
 
+function update_status(){
+    obj = {};
+    get_Status(obj);
+}
 // connection request
 function onConnect() {
     // disable button
@@ -22,9 +31,12 @@ function html_connect(obj){
     if (obj["result"] == "OK"){
         document.getElementById("connect_marker").style.color = "lightgreen";
         document.getElementById("connect_status").innerText="接続中";
+        // Start status automatic update 
+        TimerID = setInterval(update_status, PERIOD);
     }else{
         document.getElementById("connect_marker").style.color = "red";
         document.getElementById("connect_status").innerText="切断中";
+        clearInterval(TimerID);
     }
 
 }
@@ -45,7 +57,7 @@ function onMode(){
 
 function html_mode(obj){
     // Set mode name.
-    document.getElementById("mode_cell").innerHTML = obj["mode"];
+    document.getElementById("mode_cell").value = obj["mode"];
     // enable button
     btnobj = document.getElementById('btn_mode');
     btnobj.disabled = false;
@@ -58,9 +70,29 @@ function get_Status(obj){
 }
 
 function html_status(obj){
-
-    // set status into the page.
+    // set marker loction
+    // set vehicle status
+    // set status on the page.
     for ([key, value] of Object.entries(obj)){
-        // alert(key+":"+value);
+        // map set 
+        onUAVMove(obj["loc_g_lat"], obj["loc_g_lon"],
+           obj["loc_g_alt"], obj["heading"]);
+
+        // cell parameter -> cell name.
+        cellname = key+"_cell";
+        
+        // change boolean to YES/NO
+        if (typeof(value) == 'boolean'){
+            if (value) {
+                value = 'Yes';
+            } else {
+                value = 'No';
+            }
+        }
+        try{
+            document.getElementById(cellname).innerText = value;
+        } catch(e){
+            // console.log("Not used("+key+"):"+value);
+        }
     }
 }
