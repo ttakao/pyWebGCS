@@ -8,6 +8,9 @@ import uvicorn
 
 from dronekit import connect as VehicleConnect, VehicleMode
 
+# constant. this is html page. index.en.html  English version.
+HTMLPAGE = 'index.en.html'
+
 app = FastAPI()
 app.mount("/static",StaticFiles(directory="static"), name="static")
 
@@ -89,7 +92,7 @@ def getStatus(obj):
 # main web request process
 @app.get("/")
 async def get():
-    fh = open('index.html','r')
+    fh = open(HTMLPAGE,'r')
     html = fh.read() 
     return HTMLResponse(content=html, status_code=200)
 

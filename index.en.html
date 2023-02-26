@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>pyWebGCS</title>  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+  <link rel="stylesheet" href="static/style.css"> 
+
+  <script src="static/MovingMarker.js"></script>
+  <script src="static/leaflet.rotatedMarker.js"></script>
+</head>
+<body onload="map_init()">
+<header>
+<nav>
+  <div id="logo"><p>pyWebGCS</p></div>
+</nav>
+</header>
+<div id="wrapper">
+  <div id="mapcontainer"></div>
+  
+  <div id="control">
+    <canvas id="fl_status"></canvas>
+    <div>
+    <table>
+      <tbody>
+        <tr><td>Fligt Mode</td><td id="mode_cell">Unkown</td></tr>
+        <tr><td>GPS</td><td id="gps_cell">unkown</td></tr>
+        <tr><td>Battery(V)</td><td id="batt_volt_cell">unknown</td></tr>
+        <tr><td>Battery(C)</td><td id="batt_cur_cell">unknown</td></tr>
+        <tr><td>Battery(%)</td><td id="batt_level_cell">unknown</td></tr>
+        <tr><td>ARMable</td><td id="armable_cell">unknown</td></tr>
+        <tr><td>ARMed</td><td id="armed_cell">unknown</td></tr>
+        <tr><td>FC status</td><td id="sys_status_cell">unknown</td></tr>
+      </tbody>
+    </table>
+    </div>
+&nbsp;
+    <div>
+    <span classname="mode">Change Mode</span>
+    <span classname="mode">
+    <select id="sel_mode">
+      <option value="MANUAL">Manual</option>
+      <option value="GUIDED">Guided</option>
+      <option value="ALTHOLD">Alt Hold</option>
+      <option value="LOITER">Loiter</option>
+      <option value="AUTO">Auto</option>
+      <option value="RTL">RTL</option>
+    </select>
+    </span>
+    <span classname="mode">
+    <button id="btn_mode" onclick="onMode();">Set</button>
+    </span>  
+    </div>
+    &nbsp;&nbsp;
+    <div>
+      <span id="connect_marker">●</span>
+      <span id="connect_status">Closed</span>
+    </div>
+    <div>
+      <select id="sel_con">
+        <option value="close">Close</option>
+        <option value="/dev/ttyAMA0">GPIO Serial</option>
+        <option value="/dev/ttyACM0">USB Serial</option>
+        <option value="tcp:127.0.0.1:5762">Local(tcp)</option>
+        <option value="udp:127.0.0.1:14550">Local(UDP)</option>
+      </select>
+      <button id="btn_con" onclick="onConnect();">connect/close</button>
+    </div>
+  </div><!-- end control-->
+</div><!-- end wrapper-->
+&nbsp;
+</body>
+<script src="static/map_setup.js"></script>
+<script src="static/ws_setup.js"></script>
+<script src="static/uav_setup.js"></script>
+</html>
