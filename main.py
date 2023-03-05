@@ -64,6 +64,7 @@ def getStatus(obj):
     # get current status data
     # vehicle object has complicated structure
     # this function simplify it for JSON transfer
+    obj["type"] = vehicle.version.vehicle_type
     obj["loc_g_lat"] = vehicle.location.global_frame.lat
     obj["loc_g_lon"] = vehicle.location.global_frame.lon
     obj["loc_g_alt"] = vehicle.location.global_frame.alt
@@ -86,7 +87,7 @@ def getStatus(obj):
     obj["g_speed"] = vehicle.groundspeed
     obj["mode"] = vehicle.mode.name
     obj["armed"] = vehicle.armed
-   
+
     return
 
 def tryArm():
