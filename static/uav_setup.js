@@ -78,35 +78,28 @@ function html_status(obj){
         onUAVMove(obj["loc_g_lat"], obj["loc_g_lon"],
            obj["loc_g_alt"], obj["heading"]);
 
-　　　　　// UAV type
+        // UAV type
         if (key=="type"){
             // Japanese
             code = value;
             if (document.documentElement.lang == "ja"){
                switch (code){
-                case 0:
-                    value = "ジェネリック";
-                    break;
                 case 1:
-                    value = "固定翼";
+                case 19:
+                case 20:
+                case 21:
+                case 22:
+                case 23:
+                case 24:
+                    value = "飛行機";
                     break;
                 case 2:
-                    value = "クアッドコプター";
-                    break;
                 case 3:
-                    value = "同軸ヘリ";
-                    break;
                 case 4:
-                    value = "テイル付コプター";
-                    break;
-                case 7:
-                    value = "飛行船";
-                    break;
-                case 8:
-                    value = "気球";
-                    break;
-                case 9:
-                    value = "ロケット";
+                case 13:
+                case 14:
+                case 15:
+                    value = "コプター";
                     break;
                 case 10:
                     value = "地上車";
@@ -117,116 +110,40 @@ function html_status(obj){
                 case 12:
                     value = "潜水艦";
                     break;
-                case 13:
-                    value = "6回転翼コプター";
-                    break;
-                case 14:
-                    value = "8回転翼コプター";
-                    break;
-                case 15:
-                    value = "3回転翼コプター";
-                    break;
-                case 16:
-                    value = "羽ばたき翼機";
-                    break;
-                case 17:
-                    value = "凧";
-                    break;
-                case 19:
-                    value = "VTOL 2回転翼";
-                    break;
-                case 20:
-                    value = "VTOL クアッド";
-                    break;
-                case 21:
-                    value = "VTOL Tiltrotor";
-                    break;
-                case 22:
-                    value = "VTOL 固定翼";
-                    break;
-                case 23:
-                    value = "VTOL Tailsitter";
-                    break;
-                case 24:
-                    value ="VTOL Tiltwing"
-                    break;                    
                 default:
-                    value = "周辺機器?";
+                    value = "その他";
                }
             } else {
             // other in English
             switch (code){
-                case 0:
-                    value = "Generic micro air";
-                    break;
                 case 1:
-                    value = "Fixed wing aircraft";
+                case 19:
+                case 20:
+                case 21:
+                case 22:
+                case 23:
+                case 24:    
+                    value = "Plane";
                     break;
                 case 2:
-                    value = "Quadrotor";
-                    break;
                 case 3:
-                    value = "Coaxial helicopter";
-                    break;
                 case 4:
-                    value = "Normal helicopter";
-                    break;
-                case 7:
-                    value = "Airship";
-                    break;
-                case 8:
-                    value = "Free balloon";
-                    break;
-                case 9:
-                    value = "Rocket";
+                case 13:
+                case 14:
+                case 15:
+                    value = "Copter";
                     break;
                 case 10:
-                    value = "Ground rover";
+                    value = "Rover";
                     break;
                 case 11:
-                    value = "boat, ship";
+                    value = "Boat";
                     break;
                 case 12:
                     value = "Submarine";
                     break;
-                case 13:
-                    value = "Hexarotor";
-                    break;
-                case 14:
-                    value = "Octorotor";
-                    break;
-                case 15:
-                    value = "Tricopter";
-                    break;
-                case 16:
-                    value = "Flapping wing";
-                    break;
-                case 17:
-                    value = "Kite";
-                    break;
-                case 18:
-                    value = "Companion Controller";
-                    break;
-                case 19:
-                    value = "VTOL Two-rotor Tailsitter";
-                    break;
-                case 20:
-                    value = "VTOL Quad-rotor Tailsitter";
-                    break;
-                case 21:
-                    value = "VTOL Tiltrotor";
-                    break;
-                case 22:
-                    value = "VTOL fixed rotors";
-                    break;
-                case 23:
-                    value = "VTOL Tailsitter";
-                    break;
-                case 24:
-                    value ="VTOL Tiltwing"
-                    break;                    
                 default:
-                    value = "maybe peripheral";
+                    value = "Other";
                }
             }
         }
