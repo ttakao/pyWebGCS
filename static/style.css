@@ -36,7 +36,7 @@ nav{
     position:relative;
     overflow:hidden;
     top:10px;
-    bottom: 50px;
+    bottom: 30px;
     left: 10px;
     width:300px;
     text-align: center;
@@ -44,11 +44,12 @@ nav{
 
     padding:5px;
     z-index:255;
+
 }
 
 #fl_status{
     width: 260px;
-    height: 200px;
+    height: 220px;
     background-color: #000;
 }
 
@@ -62,4 +63,7 @@ nav{
 .mode{
   height: 20px;
 }
-table,td{ border: 2px white solid; }
+table,td{ 
+  border: 2px white solid; 
+  font-size: 10px;
+}

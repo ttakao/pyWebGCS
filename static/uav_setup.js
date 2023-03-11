@@ -71,13 +71,19 @@ function get_Status(obj){
 
 function html_status(obj){
     // set marker loction
+    onUAVMove(obj["loc_g_lat"], obj["loc_g_lon"],
+    obj["loc_g_alt"], obj["heading"]);
+
     // set vehicle status
+    fligthStatus(canvas, context,
+        obj["att_pitch"], //
+        obj["att_roll"],
+        obj["loc_g_alt"]
+        );
+
     // set status on the page.
     for ([key, value] of Object.entries(obj)){
         // map set 
-        onUAVMove(obj["loc_g_lat"], obj["loc_g_lon"],
-           obj["loc_g_alt"], obj["heading"]);
-
         // UAV type
         if (key=="type"){
             // Japanese
