@@ -76,87 +76,85 @@ function html_status(obj){
 
     // set vehicle status
     fligthStatus(canvas, context,
-        obj["att_pitch"], //
+        obj["att_pitch"], 
         obj["att_roll"],
         obj["loc_g_alt"]
         );
 
+    // set vehicle type.
+    code = obj["type"];
+    // Japanese
+    if (document.documentElement.lang == "ja"){
+        switch (code){
+        case 1:
+        case 19:
+        case 20:
+        case 21:
+        case 22:
+        case 23:
+        case 24:
+            value = "飛行機";
+            break;
+        case 2:
+        case 3:
+        case 4:
+        case 13:
+        case 14:
+        case 15:
+            value = "コプター";
+            break;
+        case 10:
+            value = "地上車";
+            break;
+        case 11:
+            value = "ボート";
+            break;
+        case 12:
+            value = "潜水艦";
+            break;
+        default:
+            value = "その他";
+        }
+    } else {
+    // other in English
+    switch (code){
+        case 1:
+        case 19:
+        case 20:
+        case 21:
+        case 22:
+        case 23:
+        case 24:    
+            value = "Plane";
+            break;
+        case 2:
+        case 3:
+        case 4:
+        case 13:
+        case 14:
+        case 15:
+            value = "Copter";
+            break;
+        case 10:
+            value = "Rover";
+            break;
+        case 11:
+            value = "Boat";
+            break;
+        case 12:
+            value = "Submarine";
+            break;
+        default:
+            value = "Other";
+        }
+    }
+
     // set status on the page.
     for ([key, value] of Object.entries(obj)){
-        // map set 
-        // UAV type
-        if (key=="type"){
-            // Japanese
-            code = value;
-            if (document.documentElement.lang == "ja"){
-               switch (code){
-                case 1:
-                case 19:
-                case 20:
-                case 21:
-                case 22:
-                case 23:
-                case 24:
-                    value = "飛行機";
-                    break;
-                case 2:
-                case 3:
-                case 4:
-                case 13:
-                case 14:
-                case 15:
-                    value = "コプター";
-                    break;
-                case 10:
-                    value = "地上車";
-                    break;
-                case 11:
-                    value = "ボート";
-                    break;
-                case 12:
-                    value = "潜水艦";
-                    break;
-                default:
-                    value = "その他";
-               }
-            } else {
-            // other in English
-            switch (code){
-                case 1:
-                case 19:
-                case 20:
-                case 21:
-                case 22:
-                case 23:
-                case 24:    
-                    value = "Plane";
-                    break;
-                case 2:
-                case 3:
-                case 4:
-                case 13:
-                case 14:
-                case 15:
-                    value = "Copter";
-                    break;
-                case 10:
-                    value = "Rover";
-                    break;
-                case 11:
-                    value = "Boat";
-                    break;
-                case 12:
-                    value = "Submarine";
-                    break;
-                default:
-                    value = "Other";
-               }
-            }
-        }
         // cell parameter -> cell name.
         cellname = key+"_cell";
         
-        // change boolean to YES/NO
+        // if value is boolean, change YES/NO
         if (typeof(value) == 'boolean'){
             if (value) {
                 value = 'Yes';
