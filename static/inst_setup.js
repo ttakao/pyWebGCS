@@ -1,7 +1,7 @@
 
 // THis script is providing instrument panel drawing.
 
-function drawCursor(cvs, ctx, alt){
+function drawCursor(cvs, ctx, alt, speed){
     ctx.strokeStyle = "black";
     ctx.lineWidth = 1;
     // horizon
@@ -16,15 +16,48 @@ function drawCursor(cvs, ctx, alt){
     ctx.fillStyle = "black";
     ctx.font = "10pt Arial";
     // vertical figures
-    ctx.fillText('+20', canvas.width/2, (canvas.height/2)+50);
-    ctx.fillText('+10', canvas.width/2, (canvas.height/2)+25);
-    ctx.fillText('-10', canvas.width/2, (canvas.height/2)-25);
-    ctx.fillText('-20', canvas.width/2, (canvas.height/2)-50);
+    ctx.fillText('+20', cvs.width/2, (cvs.height/2)+50);
+    ctx.fillText('+10', cvs.width/2, (cvs.height/2)+25);
+    ctx.fillText('-10', cvs.width/2, (cvs.height/2)-25);
+    ctx.fillText('-20', cvs.width/2, (cvs.height/2)-50);
     
+    // speed
+    ctx.fillText('Spd:'+speed, 10, cvs.height/2-10);
     // Height
-    ctx.fillText('Att:'+alt, canvas.width-50, canvas.height/2-10);    
+    ctx.fillText('Att:'+alt, cvs.width-50, cvs.height/2-10);    
+    ctx.stroke();
+}
+
+function drawCompass(cvs,ctx,angle){
+    ctx.beginPath();
+    ctx.strokeStyle = "orange";
+    ctx.lineWidth = 1;
+    var center_x = cvs.width*(19/20);
+    var center_y = cvs.height*(1/10);
+    var radius = 10;
+    ctx.arc(center_x, center_y, radius, 0, Math.PI*2,true);
+    ctx.stroke();
+
+    ctx.fillStyle = "red";
+    ctx.font = "4pt Arial";
+    // vertical figures
+    ctx.fillText('N', cvs.width*(19/20)-2,cvs.height*(1/10)-10);
+    ctx.stroke();
+   
+    var r_line = angle * (Math.PI / 180);
+
+    x1 = center_x + Math.sin(r_line) * radius;
+    y1 = center_y + Math.cos(r_line) * radius;
+    x2 = center_x - Math.sin(r_line) * radius;
+    y2 = center_y - Math.cos(r_line) * radius;
+    ctx.strokeStyle="red"; 
+    ctx.beginPath();
+    ctx.moveTo(x1,y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
 
 }
+
 function drawHorizon(cvs,ctx,pitch,roll){
     var sin_theta = Math.sin(roll);
     var cos_theta = Math.cos(roll);
@@ -58,14 +91,22 @@ function canvasErase(cvs,ctx){
   ctx.clearRect(0,0, cvs.width, cvs.height);
 }
 
-function fligthStatus(cvs, ctx, pitch, roll, alt){
+function fligthStatus(cvs, ctx, pitch, roll, alt,angle,speed){
   canvasErase(cvs,ctx);
-  drawHorizon(cvs,ctx,0,0);
-  drawCursor(cvs,ctx,alt);
+  drawHorizon(cvs,ctx,pitch,roll);
+  drawCursor(cvs,ctx,alt,speed);
+  drawCompass(cvs,ctx,angle);
+
 }
 
 canvas = document.getElementById("fl_status");
 context = canvas.getContext('2d');
 // initial status.
-fligthStatus(canvas, context, 0, 0, 0);
+fligthStatus(canvas, context, 
+  0, // pitch 
+  0, // roll
+  0, // altitude
+  0, // heading angle
+  0, // speed
+  );
 

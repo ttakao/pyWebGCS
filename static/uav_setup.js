@@ -63,7 +63,6 @@ function html_mode(obj){
     btnobj.disabled = false;
 }
 
-
 // get status request
 function get_Status(obj){
     send_json("status", obj);
@@ -78,9 +77,10 @@ function html_status(obj){
     fligthStatus(canvas, context,
         obj["att_pitch"], 
         obj["att_roll"],
-        obj["loc_g_alt"]
-        );
-
+        obj["loc_g_alt"],
+        obj["heading"],
+        obj["g_speed"]
+    );
     // set vehicle type.
     code = obj["type"];
     // Japanese
@@ -148,6 +148,7 @@ function html_status(obj){
             value = "Other";
         }
     }
+    obj["type"] = value;
 
     // set status on the page.
     for ([key, value] of Object.entries(obj)){
