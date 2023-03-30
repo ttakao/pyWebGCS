@@ -1,5 +1,14 @@
 
-// THis script is providing instrument panel drawing.
+// THis script is providing INSTrument panel drawing.
+canvas = document.getElementById("fl_status");
+context = canvas.getContext('2d');
+// initial status.
+fligthStatus(canvas, context, 
+  0, // pitch 
+  0, // roll
+  0, // altitude
+  0, // speed
+  );
 
 function drawCursor(cvs, ctx, alt, speed){
     ctx.strokeStyle = "black";
@@ -26,36 +35,6 @@ function drawCursor(cvs, ctx, alt, speed){
     // Height
     ctx.fillText('Att:'+alt, cvs.width-50, cvs.height/2-10);    
     ctx.stroke();
-}
-
-function drawCompass(cvs,ctx,angle){
-    ctx.beginPath();
-    ctx.strokeStyle = "orange";
-    ctx.lineWidth = 1;
-    var center_x = cvs.width*(19/20);
-    var center_y = cvs.height*(1/10);
-    var radius = 10;
-    ctx.arc(center_x, center_y, radius, 0, Math.PI*2,true);
-    ctx.stroke();
-
-    ctx.fillStyle = "red";
-    ctx.font = "4pt Arial";
-    // vertical figures
-    ctx.fillText('N', cvs.width*(19/20)-2,cvs.height*(1/10)-10);
-    ctx.stroke();
-   
-    var r_line = angle * (Math.PI / 180);
-
-    x1 = center_x + Math.sin(r_line) * radius;
-    y1 = center_y + Math.cos(r_line) * radius;
-    x2 = center_x - Math.sin(r_line) * radius;
-    y2 = center_y - Math.cos(r_line) * radius;
-    ctx.strokeStyle="red"; 
-    ctx.beginPath();
-    ctx.moveTo(x1,y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
-
 }
 
 function drawHorizon(cvs,ctx,pitch,roll){
@@ -95,18 +74,38 @@ function fligthStatus(cvs, ctx, pitch, roll, alt,angle,speed){
   canvasErase(cvs,ctx);
   drawHorizon(cvs,ctx,pitch,roll);
   drawCursor(cvs,ctx,alt,speed);
-  drawCompass(cvs,ctx,angle);
-
 }
 
-canvas = document.getElementById("fl_status");
-context = canvas.getContext('2d');
-// initial status.
-fligthStatus(canvas, context, 
-  0, // pitch 
-  0, // roll
-  0, // altitude
-  0, // heading angle
-  0, // speed
-  );
+// Compass part.
+ccanvas = document.getElementById("compass");
+ccontext = ccanvas.getContext('2d');
 
+needle = new Image();
+needle.src = 'static/needle.png';
+cbody = new Image();
+cbody.src = 'static/compass.png';
+cbody.onload = bodyLoaded;
+
+function bodyLoaded(){
+  console.log("Compass image loaded.");
+  compassDraw(0); // initial call.
+} // dummy
+
+function compassDraw(degrees){
+  // hope square shape.
+  ccontext.clearRect(0,0, ccanvas.width, ccanvas.height);
+  ccontext.drawImage(cbody,
+    0,0,cbody.width, cbody.height,
+    0,0,ccanvas.width, ccanvas.height);
+  ccontext.save();
+  // origin move to center of canvas.
+  ccontext.translate(ccanvas.width/2, ccanvas.height/2);
+  // rotate by angle
+  ccontext.rotate(degrees * (Math.PI / 180));
+  // draw needle
+  ccontext.drawImage(needle,
+     0,0, needle.width, needle.height,
+     -ccanvas.width/2, -ccanvas.height/2, ccanvas.width, ccanvas.height);
+  // origin back
+  ccontext.restore();
+}     

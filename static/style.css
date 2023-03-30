@@ -36,21 +36,25 @@ nav{
     position:relative;
     overflow:hidden;
     top:10px;
-    bottom: 30px;
+    bottom: 10px;
     left: 10px;
     width:300px;
     text-align: center;
     background-color: #888;
 
-    padding:5px;
+    padding:10px;
     z-index:255;
 
 }
 
 #fl_status{
-    width: 260px;
-    height: 220px;
+    width: 240px;
+    height: 180px;
     background-color: #000;
+}
+#compass{
+  width: 180px;
+  height: 180px;
 }
 
 #connect_marker {
@@ -65,5 +69,5 @@ nav{
 }
 table,td{ 
   border: 2px white solid; 
-  font-size: 10px;
+  font-size: 12px;
 }

@@ -78,9 +78,10 @@ function html_status(obj){
         obj["att_pitch"], 
         obj["att_roll"],
         obj["loc_g_alt"],
-        obj["heading"],
         obj["g_speed"]
     );
+    // set compass
+    drawCompass(obj["heading"]); 
     // set vehicle type.
     code = obj["type"];
     // Japanese

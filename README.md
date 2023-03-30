@@ -43,4 +43,8 @@ Install and set
 5. map can be changed top right corner button.
 6. connect
 
+## Acknowledge
+I use compass package in https://github.com/rheh/HTML5-canvas-projects.
+This is great package because good compass and needle design. THnaks Ray.
+
 
